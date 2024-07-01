@@ -9,11 +9,20 @@ $req->execute(array($userName));
 
 $user = $req->fetch();
 
-if(count($user) > 1){
+if($user){
   if($password == $user["password"]){
-    echo "Bienvenue";
+    if($user["age"] < 18){
+      header("location: /cours-php/index.php?error=age");
+
+    } else {
+      if($user["sexe"] == "F" && date('H') == 17){
+        echo "Bienvenue c'est gratuit";
+      } else {
+        echo "Bienvenue c'est 5 euros";
+      }
+    }
   } else {
-    header("location: /cours-php?error=password");
+    header("location: /cours-php/index.php?error=password");
   }
 } else {
   echo "user or password incorrect";
